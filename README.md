@@ -2,13 +2,13 @@
 
 ## Fonctionnalités
 
-- [] Homepage
-- [] Compte
-- [] Créer un artiste (lier au comptes)
-- [] Inscription
-- [] Connexion
-- [] Mon compte
-- [] Sécuriser mon compte
+- [x] Homepage
+- [x] Compte
+- [x] Créer un artiste (lier au comptes)
+- [x] Inscription
+- [x] Connexion
+- [x] Mon compte
+- [x] Sécuriser mon compte
 - [] Créer un titre (si compte artiste)
 - [] BREAD titre
 - [] BREAD playlist
