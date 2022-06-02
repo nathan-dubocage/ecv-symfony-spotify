@@ -36,9 +36,12 @@ class SongController extends AbstractController
             $user = $coreSecurity->getUser();
             $artist = $user->getArtist();
             $song->addArtist($artist);
+
+            $defaultStorage->move($song->getFile(), 'songFiles/' . $song->getName());
+            $defaultStorage->move($song->getImage(), 'songCover/' .$song->getName());
+
             $songRepository->add($song, true);
 
-            // $defaultStorage
 
             return $this->redirectToRoute('app_song_index', [], Response::HTTP_SEE_OTHER);
         }
