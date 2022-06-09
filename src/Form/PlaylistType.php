@@ -2,25 +2,23 @@
 
 namespace App\Form;
 
+use App\Entity\Playlist;
 use App\Entity\Song;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SongType extends AbstractType
+class PlaylistType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('formFile', FileType::class, [
-                'required' => false
-            ])
-            ->add('duration')
-            ->add('listeningnumber')
-            ->add('imageFile', FileType::class, [
-                'required' => false
+            ->add('name', TextType::class)
+            ->add('songs', EntityType::class, [
+                'class' => Song::class,
+                'multiple' => true
             ])
         ;
     }
@@ -28,7 +26,7 @@ class SongType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Song::class,
+            'data_class' => Playlist::class,
         ]);
     }
 }

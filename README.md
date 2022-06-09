@@ -9,7 +9,7 @@
 - [x] Connexion
 - [x] Mon compte
 - [x] Sécuriser mon compte
-- [] Créer un titre (si compte artiste)
+- [X] Créer un titre (si compte artiste)
 - [] BREAD titre
 - [] BREAD playlist
 - [] Écouter un titre

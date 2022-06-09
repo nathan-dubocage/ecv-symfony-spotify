@@ -28,7 +28,9 @@
                 <td>{{ song.image }}</td>
                 <td>
                     <a href="{{ path('app_song_show', {'id': song.id}) }}">show</a>
-                    <a href="{{ path('app_song_edit', {'id': song.id}) }}">edit</a>
+                    {% if song.isOwner == true %}
+                        <a href="{{ path('app_song_edit', {'id': song.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

@@ -6,6 +6,7 @@ use App\Repository\SongRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: SongRepository::class)]
 class Song
@@ -24,6 +25,8 @@ class Song
     #[ORM\Column(type: 'string', length: 255)]
     private string $file = '';
 
+    private ?File $formFile = null;
+
     #[ORM\Column(type: 'integer')]
     private int $duration = 0;
 
@@ -33,9 +36,20 @@ class Song
     #[ORM\Column(type: 'string', length: 255)]
     private string $image = '';
 
+    private ?File $imageFile = null;
+
+    #[ORM\ManyToMany(targetEntity: Playlist::class, mappedBy: 'songs')]
+    private $playlists;
+
     public function __construct()
     {
         $this->artists = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -123,6 +137,55 @@ class Song
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getFormFile(): ?File
+    {
+        return $this->formFile;
+    }
+    public function setFormFile(?File $formFile)
+    {
+        $this->formFile = $formFile;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+    public function setImageFile(?File $imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Playlist>
+     */
+    public function getPlaylists(): Collection
+    {
+        return $this->playlists;
+    }
+
+    public function addPlaylist(Playlist $playlist): self
+    {
+        if (!$this->playlists->contains($playlist)) {
+            $this->playlists[] = $playlist;
+            $playlist->addSong($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlaylist(Playlist $playlist): self
+    {
+        if ($this->playlists->removeElement($playlist)) {
+            $playlist->removeSong($this);
+        }
 
         return $this;
     }

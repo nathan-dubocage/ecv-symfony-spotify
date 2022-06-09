@@ -5,7 +5,27 @@
 {% block body %}
     <h1>Edit Song</h1>
 
-    {{ include('song/_form.html.twig', {'button_label': 'Update'}) }}
+    {# {{ include('song/_form.html.twig', {'button_label': 'Update'}) }} #}
+
+    {{ form_start(form) }}
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}<br/>
+
+        {{ form_label(form.formFile) }} {{ ' (' ~ song.file ~ ' )'}}
+        {{ form_widget(form.formFile) }}<br/>
+
+        {{ form_label(form.duration) }}
+        {{ form_widget(form.duration) }}<br/>
+
+        {{ form_label(form.listeningnumber) }}
+        {{ form_widget(form.listeningnumber) }}<br/>
+
+        {{ form_label(form.imageFile) }} {{ ' (' ~ song.image ~ ' )'}}
+        {{ form_widget(form.imageFile) }}<br/>
+
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
 
     <a href="{{ path('app_song_index') }}">back to list</a>
 
